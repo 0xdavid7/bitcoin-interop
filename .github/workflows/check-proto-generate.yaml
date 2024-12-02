@@ -1,0 +1,37 @@
+name: Check protobuf generated files up-to-date
+
+on:
+  - pull_request
+
+jobs:
+  check-proto-generate-up-to-date:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Setup Golang with cache
+        uses: magnetikonline/action-golang-cache@v2
+        with:
+          go-version: 1.23
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install prereqs
+        run: |
+          go install github.com/rakyll/statik
+
+      - name: Generate proto files and docs
+        run: make proto-format proto-gen
+
+      - name: Check for changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo Following files are changed...
+            git status
+
+            echo Changes:
+            git diff
+
+            exit 1;
+          else
+            exit 0;
+          fi
