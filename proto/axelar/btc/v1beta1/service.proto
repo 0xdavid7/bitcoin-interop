@@ -1,0 +1,37 @@
+syntax = "proto3";
+package axelar.btc.v1beta1;
+
+option go_package = "github.com/axelarnetwork/axelar-core/x/btc/types";
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "axelar/btc/v1beta1/tx.proto";
+import "axelar/btc/v1beta1/query.proto";
+
+option (gogoproto.goproto_registration) = true;
+
+// Msg defines the btc Msg service.
+service MsgService {
+  // Add message service endpoints here
+  // Example:
+  // rpc ConfirmBtcTransaction(ConfirmBtcTransactionRequest) returns (ConfirmBtcTransactionResponse) {
+  //   option (google.api.http) = {
+  //     post: "/axelar/btc/confirm_transaction"
+  //     body: "*"
+  //   };
+  // }
+}
+
+// QueryService defines the gRPC querier service.
+service QueryService {
+  // Params queries the parameters of the module
+  rpc Params(ParamsRequest) returns (ParamsResponse) {
+    option (google.api.http).get = "/axelar/btc/v1beta1/params";
+  }
+
+  // Add query service endpoints here
+  // Example:
+  // rpc BtcTransactionStatus(BtcTransactionStatusRequest) returns (BtcTransactionStatusResponse) {
+  //   option (google.api.http).get = "/axelar/btc/v1beta1/transaction_status/{tx_id}";
+  // }
+} 

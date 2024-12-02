@@ -1,0 +1,25 @@
+syntax = "proto3";
+package axelar.btc.v1beta1;
+
+option go_package = "github.com/axelarnetwork/axelar-core/x/btc/types";
+
+import "gogoproto/gogo.proto";
+import "axelar/btc/v1beta1/params.proto";
+
+// ParamsRequest is the request type for the Query/Params RPC method
+message ParamsRequest {}
+
+// ParamsResponse is the response type for the Query/Params RPC method
+message ParamsResponse {
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+// Add other query request/response types here
+// Example:
+// message BtcTransactionStatusRequest {
+//   string tx_id = 1;
+// }
+
+// message BtcTransactionStatusResponse {
+//   string status = 1;
+// } 

@@ -55,6 +55,8 @@ import (
 	axelarnetKeeper "github.com/axelarnetwork/axelar-core/x/axelarnet/keeper"
 	axelarnetTypes "github.com/axelarnetwork/axelar-core/x/axelarnet/types"
 	axelarbankkeeper "github.com/axelarnetwork/axelar-core/x/bank/keeper"
+	btcKeeper "github.com/axelarnetwork/axelar-core/x/btc/keeper"
+	btcTypes "github.com/axelarnetwork/axelar-core/x/btc/types"
 	evmKeeper "github.com/axelarnetwork/axelar-core/x/evm/keeper"
 	evmTypes "github.com/axelarnetwork/axelar-core/x/evm/types"
 	multisigKeeper "github.com/axelarnetwork/axelar-core/x/multisig/keeper"
@@ -350,6 +352,10 @@ func initAxelarnetKeeper(appCodec codec.Codec, keys map[string]*sdk.KVStoreKey, 
 
 func initEvmKeeper(appCodec codec.Codec, keys map[string]*sdk.KVStoreKey, keepers *KeeperCache) *evmKeeper.BaseKeeper {
 	return evmKeeper.NewKeeper(appCodec, keys[evmTypes.StoreKey], GetKeeper[paramskeeper.Keeper](keepers))
+}
+
+func initBtcKeeper(appCodec codec.Codec, keys map[string]*sdk.KVStoreKey, keepers *KeeperCache) *btcKeeper.BaseKeeper {
+	return btcKeeper.NewKeeper(appCodec, keys[btcTypes.StoreKey], GetKeeper[paramskeeper.Keeper](keepers))
 }
 
 func initNexusKeeper(appCodec codec.Codec, keys map[string]*sdk.KVStoreKey, keepers *KeeperCache) *nexusKeeper.Keeper {

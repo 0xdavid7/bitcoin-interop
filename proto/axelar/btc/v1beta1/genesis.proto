@@ -1,0 +1,13 @@
+// x/btc/types/types.proto
+syntax = "proto3";
+package axelar.btc.v1beta1;
+option go_package = "github.com/axelarnetwork/axelar-core/x/btc/types";
+
+import "gogoproto/gogo.proto";
+
+import "axelar/btc/v1beta1/params.proto";
+
+option (gogoproto.goproto_getters_all) = false;
+
+// GenesisState represents the genesis state
+message GenesisState { Params params = 1 [ (gogoproto.nullable) = false ]; }

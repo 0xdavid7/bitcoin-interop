@@ -24,3 +24,18 @@ make dev
 ```
 
 The docs will be updated soon.
+
+## BTC Module:
+
+- Genesis:
+  - Chains:
+    - Bitcoin:
+      - Params:
+        - ChainName:
+        - Version:
+
+
+
+## How to add new module:
+
+[How to add new module](./docs/how-to-add-new-module.md)

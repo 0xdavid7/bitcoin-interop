@@ -12,6 +12,7 @@ stop_gracefully() {
 
 HOME_DIR="$PWD"
 CONFIG_DIR="$HOME_DIR/.axelar"
+CONFIG_PATH="$HOME_DIR/config"
 
 fileCount() {
   find "$1" -maxdepth 1 ! -iname ".*" ! -iname "$(basename "$1")" | wc -l
@@ -40,6 +41,9 @@ if [ -n "$CONFIG_PATH" ] && [ -d "$CONFIG_PATH" ]; then
   fi
   if [ -f "$CONFIG_PATH/genesis.json" ]; then
     cp "$CONFIG_PATH/genesis.json" "$CONFIG_DIR/genesis.json"
+  fi
+  if [ -f "$CONFIG_PATH/seeds.toml" ]; then
+    cp "$CONFIG_PATH/seeds.toml" "$CONFIG_DIR/config/seeds.toml"
   fi
 fi
 

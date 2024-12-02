@@ -169,11 +169,20 @@
     - [MsgService](#axelar.axelarnet.v1beta1.MsgService)
     - [QueryService](#axelar.axelarnet.v1beta1.QueryService)
   
-- [axelar/btc/v1beta1/types.proto](#axelar/btc/v1beta1/types.proto)
-    - [BTCEvent](#axelar.btc.v1beta1.BTCEvent)
-    - [BTCTransaction](#axelar.btc.v1beta1.BTCTransaction)
+- [axelar/btc/v1beta1/params.proto](#axelar/btc/v1beta1/params.proto)
+    - [Params](#axelar.btc.v1beta1.Params)
   
-    - [BTCEvent.Status](#axelar.btc.v1beta1.BTCEvent.Status)
+- [axelar/btc/v1beta1/genesis.proto](#axelar/btc/v1beta1/genesis.proto)
+    - [GenesisState](#axelar.btc.v1beta1.GenesisState)
+  
+- [axelar/btc/v1beta1/query.proto](#axelar/btc/v1beta1/query.proto)
+    - [ParamsRequest](#axelar.btc.v1beta1.ParamsRequest)
+    - [ParamsResponse](#axelar.btc.v1beta1.ParamsResponse)
+  
+- [axelar/btc/v1beta1/tx.proto](#axelar/btc/v1beta1/tx.proto)
+- [axelar/btc/v1beta1/service.proto](#axelar/btc/v1beta1/service.proto)
+    - [MsgService](#axelar.btc.v1beta1.MsgService)
+    - [QueryService](#axelar.btc.v1beta1.QueryService)
   
 - [axelar/snapshot/exported/v1beta1/types.proto](#axelar/snapshot/exported/v1beta1/types.proto)
     - [Participant](#axelar.snapshot.exported.v1beta1.Participant)
@@ -2830,44 +2839,24 @@ QueryService defines the gRPC querier service.
 
 
 
-<a name="axelar/btc/v1beta1/types.proto"></a>
+<a name="axelar/btc/v1beta1/params.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## axelar/btc/v1beta1/types.proto
+## axelar/btc/v1beta1/params.proto
 x/btc/types/types.proto
 
 
-<a name="axelar.btc.v1beta1.BTCEvent"></a>
+<a name="axelar.btc.v1beta1.Params"></a>
 
-### BTCEvent
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `tx_hash` | [string](#string) |  |  |
-| `status` | [BTCEvent.Status](#axelar.btc.v1beta1.BTCEvent.Status) |  |  |
-| `created_height` | [uint64](#uint64) |  |  |
-
-
-
-
-
-
-<a name="axelar.btc.v1beta1.BTCTransaction"></a>
-
-### BTCTransaction
+### Params
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `tx_hash` | [string](#string) |  |  |
-| `block_height` | [uint64](#uint64) |  |  |
-| `sender` | [string](#string) |  |  |
-| `recipient` | [string](#string) |  |  |
-| `amount` | [string](#string) |  |  |
+| `chain` | [string](#string) |  |  |
 | `confirmation_height` | [uint64](#uint64) |  |  |
+| `network` | [string](#string) |  |  |
 
 
 
@@ -2875,23 +2864,132 @@ x/btc/types/types.proto
 
  <!-- end messages -->
 
+ <!-- end enums -->
 
-<a name="axelar.btc.v1beta1.BTCEvent.Status"></a>
+ <!-- end HasExtensions -->
 
-### BTCEvent.Status
+ <!-- end services -->
 
 
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| STATUS_UNSPECIFIED | 0 |  |
-| STATUS_PENDING | 1 |  |
-| STATUS_CONFIRMED | 2 |  |
-| STATUS_FAILED | 3 |  |
 
+<a name="axelar/btc/v1beta1/genesis.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## axelar/btc/v1beta1/genesis.proto
+x/btc/types/types.proto
+
+
+<a name="axelar.btc.v1beta1.GenesisState"></a>
+
+### GenesisState
+GenesisState represents the genesis state
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `params` | [Params](#axelar.btc.v1beta1.Params) |  |  |
+
+
+
+
+
+ <!-- end messages -->
 
  <!-- end enums -->
 
  <!-- end HasExtensions -->
+
+ <!-- end services -->
+
+
+
+<a name="axelar/btc/v1beta1/query.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## axelar/btc/v1beta1/query.proto
+
+
+
+<a name="axelar.btc.v1beta1.ParamsRequest"></a>
+
+### ParamsRequest
+ParamsRequest is the request type for the Query/Params RPC method
+
+
+
+
+
+
+<a name="axelar.btc.v1beta1.ParamsResponse"></a>
+
+### ParamsResponse
+ParamsResponse is the response type for the Query/Params RPC method
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `params` | [Params](#axelar.btc.v1beta1.Params) |  |  |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+ <!-- end services -->
+
+
+
+<a name="axelar/btc/v1beta1/tx.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## axelar/btc/v1beta1/tx.proto
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+ <!-- end services -->
+
+
+
+<a name="axelar/btc/v1beta1/service.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## axelar/btc/v1beta1/service.proto
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+
+<a name="axelar.btc.v1beta1.MsgService"></a>
+
+### MsgService
+Msg defines the btc Msg service.
+
+| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
+| ----------- | ------------ | ------------- | ------------| ------- | -------- |
+
+
+<a name="axelar.btc.v1beta1.QueryService"></a>
+
+### QueryService
+QueryService defines the gRPC querier service.
+
+| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
+| ----------- | ------------ | ------------- | ------------| ------- | -------- |
+| `Params` | [ParamsRequest](#axelar.btc.v1beta1.ParamsRequest) | [ParamsResponse](#axelar.btc.v1beta1.ParamsResponse) | Params queries the parameters of the module | GET|/axelar/btc/v1beta1/params|
 
  <!-- end services -->
 

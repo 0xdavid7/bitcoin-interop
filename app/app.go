@@ -107,6 +107,7 @@ import (
 	axelarnetKeeper "github.com/axelarnetwork/axelar-core/x/axelarnet/keeper"
 	axelarnetTypes "github.com/axelarnetwork/axelar-core/x/axelarnet/types"
 	axelarbankkeeper "github.com/axelarnetwork/axelar-core/x/bank/keeper"
+	"github.com/axelarnetwork/axelar-core/x/btc"
 	"github.com/axelarnetwork/axelar-core/x/evm"
 	evmKeeper "github.com/axelarnetwork/axelar-core/x/evm/keeper"
 	evmTypes "github.com/axelarnetwork/axelar-core/x/evm/types"
@@ -131,6 +132,9 @@ import (
 	"github.com/axelarnetwork/axelar-core/x/vote"
 	voteKeeper "github.com/axelarnetwork/axelar-core/x/vote/keeper"
 	voteTypes "github.com/axelarnetwork/axelar-core/x/vote/types"
+
+	btcKeeper "github.com/axelarnetwork/axelar-core/x/btc/keeper"
+	btcTypes "github.com/axelarnetwork/axelar-core/x/btc/types"
 
 	// Override with generated statik docs
 	_ "github.com/axelarnetwork/axelar-core/client/docs/statik"
@@ -247,6 +251,7 @@ func NewAxelarApp(
 	SetKeeper(keepers, initSnapshotKeeper(appCodec, keys, keepers))
 	SetKeeper(keepers, initVoteKeeper(appCodec, keys, keepers))
 	SetKeeper(keepers, initPermissionKeeper(appCodec, keys, keepers))
+	SetKeeper(keepers, initBtcKeeper(appCodec, keys, keepers))
 
 	// set up ibc/wasm keepers
 	wasmHooks := InitWasmHooks(keys)
@@ -439,6 +444,7 @@ func initIBCRouter(keepers *KeeperCache, axelarnetModule porttypes.IBCModule) *p
 func initMessageRouter(keepers *KeeperCache) nexusTypes.MessageRouter {
 	messageRouter := nexusTypes.NewMessageRouter().
 		AddRoute(evmTypes.ModuleName, evmKeeper.NewMessageRoute()).
+		AddRoute(btcTypes.ModuleName, btcKeeper.NewMessageRoute()).
 		AddRoute(axelarnetTypes.ModuleName, axelarnetKeeper.NewMessageRoute(
 			GetKeeper[axelarnetKeeper.IBCKeeper](keepers),
 			GetKeeper[feegrantkeeper.Keeper](keepers),
@@ -605,6 +611,9 @@ func initAppModules(keepers *KeeperCache, bApp *bam.BaseApp, encodingConfig axel
 			GetKeeper[slashingkeeper.Keeper](keepers),
 			GetKeeper[multisigKeeper.Keeper](keepers),
 		),
+		btc.NewAppModule(
+			*GetKeeper[btcKeeper.BaseKeeper](keepers),
+		),
 		axelarnetModule,
 		reward.NewAppModule(
 			*GetKeeper[rewardKeeper.Keeper](keepers),
@@ -765,6 +774,7 @@ func orderMigrations() []string {
 		snapTypes.ModuleName,
 		axelarnetTypes.ModuleName,
 		auxiliarytypes.ModuleName,
+		btcTypes.ModuleName,
 	)
 	return migrationOrder
 }
@@ -816,6 +826,7 @@ func orderBeginBlockers() []string {
 		axelarnetTypes.ModuleName,
 		voteTypes.ModuleName,
 		auxiliarytypes.ModuleName,
+		btcTypes.ModuleName,
 	)
 	return beginBlockerOrder
 }
@@ -862,6 +873,7 @@ func orderEndBlockers() []string {
 		permissionTypes.ModuleName,
 		voteTypes.ModuleName,
 		auxiliarytypes.ModuleName,
+		btcTypes.ModuleName,
 	)
 	return endBlockerOrder
 }
@@ -911,6 +923,7 @@ func orderModulesForGenesis() []string {
 		rewardTypes.ModuleName,
 		permissionTypes.ModuleName,
 		auxiliarytypes.ModuleName,
+		btcTypes.ModuleName,
 	)
 	return genesisOrder
 }
@@ -1076,6 +1089,7 @@ func GetModuleBasics() module.BasicManager {
 		tss.AppModuleBasic{},
 		vote.AppModuleBasic{},
 		evm.AppModuleBasic{},
+		btc.AppModuleBasic{},
 		snapshot.AppModuleBasic{},
 		nexus.AppModuleBasic{},
 		axelarnet.AppModuleBasic{},
